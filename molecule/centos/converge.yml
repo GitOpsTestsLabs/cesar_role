@@ -1,0 +1,6 @@
+---
+- name: Use Case 1
+  import_playbook: ../../tests/test_HelloWorld.yml
+
+- name: Use Case 2
+  import_playbook: ../../tests/test_HelloWorld.yml    

@@ -1,0 +1,50 @@
+---
+name: "CI - Continuous Integration"
+on: 
+     workflow_dispatch:
+        inputs:
+          name:
+             description: "CI Manual Testing"
+             default: "Continous Integration"
+             required: true
+             type: string     
+jobs:
+     test-ansible:
+        runs-on: ubuntu-latest
+        strategy:
+             fail-fast: false
+             matrix:
+                    config:
+                      - image: "centos"
+                        tag: "stream6"
+                      - image: "centos"
+                        tag: "stream7"
+                      - image: "centos"
+                        tag: "stream8"                
+        steps:
+             - name: Checkout repository
+               uses: actions/checkout@main
+               with:
+                    path: "${{ github.repository }}"
+
+             - name: Set up Python ${{ matrix.python-version }}
+               uses: actions/setup-python@v2
+
+             - name: Set up Docker
+               uses: docker/setup-docker-action@v4
+
+             - name: Install dependencies
+               run: |
+                    python3 -m venv $HOME/ansible-EE
+                    source $HOME/ansible-EE/bin/activate               
+                    python3 -m pip install --upgrade pip
+                    python3 -m pip install ansible
+                    python3 -m pip install ansible-dev-tools
+                    python3 -m pip install molecule
+                    python3 -m pip install molecule-docker
+                    python3 -m pip install tox-ansible                    
+             - name: Test with molecule
+               run: |
+                    source $HOME/ansible-EE/bin/activate
+                    cd ${{ github.repository }}
+                    image=${{ matrix.config.image }} tag=${{ matrix.config.tag }} molecule test -s ubuntu

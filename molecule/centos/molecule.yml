@@ -1,0 +1,40 @@
+---
+driver:
+  name: ${LSR_MOLECULE_DRIVER:-docker}
+  options:
+    managed: false
+    login_cmd_template: docker exec -ti {instance} bash
+    ansible_connection_options:
+      ansible_connection: community.docker.docker
+      ansible_become_method: su
+dependency:
+  name: galaxy
+  options:
+    role-file: meta/requirements.yml
+    requirements-file: molecule/HelloWorld/requirements.yml
+provisioner:
+  name: ansible
+  log: true
+  env:
+    ANSIBLE_BECOME: True
+    ANSIBLE_BECOME_METHOD: su
+    ANSIBLE_BECOME_USER: root
+  config_options:
+    defaults:
+      local_tmp: /tmp/.ansible-$USER/tmp
+      remote_tmp: /tmp/.ansible-$USER/tmp
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+platforms:
+- name: "indra-${image:-centos}-${tag:-stream8}${TOX_ENVNAME}"
+  image: "${namespace:-quay.io/centos}/${image:-centos}:${tag:-stream8}"
+  command: /sbin/init
+  privileged: true
+  pre_build_image: true
+    #tmpfs:
+    #- /run
+    #- /tmp
+    #volumes:
+    #- /sys/fs/cgroup:/sys/fs/cgroup:ro
