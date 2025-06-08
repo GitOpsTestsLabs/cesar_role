@@ -47,4 +47,5 @@ jobs:
                run: |
                     source $HOME/ansible-EE/bin/activate
                     cd ${{ github.repository }}
+                    export MOLECULE_EPHEMERAL_DIRECTORY=/tmp/.molecule
                     image=${{ matrix.config.image }} tag=${{ matrix.config.tag }} molecule test -s ubuntu
