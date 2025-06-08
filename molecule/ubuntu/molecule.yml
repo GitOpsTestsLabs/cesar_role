@@ -1,6 +1,6 @@
 ---
 driver:
-  name: default
+  name: ${LSR_MOLECULE_DRIVER:-docker} 
   options:
     managed: false
     login_cmd_template: docker exec -ti {instance} bash
