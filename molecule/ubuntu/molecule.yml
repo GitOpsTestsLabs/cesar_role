@@ -35,6 +35,7 @@ platforms:
   pre_build_image: true
 scenario:
   name: ubuntu
+  ephemeral_directory: /tmp/.molecule
   test_sequence:
     - syntax
     - destroy
