@@ -1,8 +1,8 @@
 ---
 galaxy_info:
-  role_name: ${ALUMNO}_role
+  role_name: cesar_role
   namespace: xr12  
-  author: ${ALUMNO} 
+  author: cesar 
   description: Testing Ansible CI Environment
   company: Indra
   license: BSD-3-Clause 
