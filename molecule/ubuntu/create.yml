@@ -27,7 +27,7 @@
         item.container.State.ExitCode != 0 or
         not item.container.State.Running
       ansible.builtin.include_tasks:
-        file: tasks/create-fail.yml
+        file: create-fail.yml
       loop: "{{ result.results }}"
       loop_control:
         label: "{{ item.container.Name }}"
@@ -52,7 +52,7 @@
       ansible.builtin.copy:
         content: |
           {{ molecule_inventory | to_yaml }}
-        dest: "{{ molecule_ephemeral_directory }}/inventory/molecule_inventory.yml"
+        dest: "molecule_inventory.yml"
         mode: "0600"
 
     - name: Force inventory refresh
