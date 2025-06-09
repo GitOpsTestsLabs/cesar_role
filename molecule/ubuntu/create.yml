@@ -51,19 +51,18 @@
     - name: Dump molecule_inventory
       ansible.builtin.copy:
         content: |
-          {{ molecule_inventory | to_yaml | to_nice_yaml }}
+          {{ molecule_inventory | to_yaml }}
         dest: "{{ molecule_ephemeral_directory }}/inventory/molecule_inventory.yml"
         mode: "0600"
 
 
     - name: Find out what the remote machine's mounts are
-      ansible.builtin.slurp:
-        src: "{{ molecule_ephemeral_directory }}/inventory/molecule_inventory.yml"
+      ansible.builtin.command: "cat {{ molecule_ephemeral_directory }}/inventory/molecule_inventory.yml"
       register: inventario
 
     - name: Print returned information
       ansible.builtin.debug:
-        msg: "{{ inventario['content'] | b64decode }}"
+        msg: "{{ inventario }}"
 
 
     - name: Force inventory refresh
