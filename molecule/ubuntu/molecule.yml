@@ -24,6 +24,7 @@ provisioner:
     defaults:
       local_tmp: /tmp/.ansible-$USER/tmp
       remote_tmp: /tmp/.ansible-$USER/tmp
+      allow_world_readable_tmpfiles: True
 lint: |
   set -e
   yamllint .
