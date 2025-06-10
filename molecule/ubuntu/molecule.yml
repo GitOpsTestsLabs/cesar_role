@@ -6,6 +6,7 @@ driver:
     login_cmd_template: docker exec -ti {instance} bash
     ansible_connection_options:
       ansible_connection: community.docker.docker
+      ansible_become_method: sudo
 dependency:
   name: galaxy
   options:
@@ -16,7 +17,7 @@ provisioner:
   log: true
   env:
     ANSIBLE_BECOME: True
-    ANSIBLE_BECOME_METHOD: su
+    ANSIBLE_BECOME_METHOD: sudo
     ANSIBLE_BECOME_USER: root
   config_options:
     defaults:
