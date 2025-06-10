@@ -37,4 +37,16 @@ platforms:
     #- /tmp
     #volumes:
     #- /sys/fs/cgroup:/sys/fs/cgroup:ro
-
+scenario:
+  name: ubuntu
+  test_sequence:
+    - syntax
+    - destroy
+    - dependency
+    - create
+    - prepare
+    - converge
+    - idempotence
+    - side_effect
+    - verify
+    - destroy
