@@ -41,7 +41,6 @@ scenario:
   name: ubuntu
   test_sequence:
     - syntax
-    - destroy
     - dependency
     - create
     - prepare
@@ -49,4 +48,3 @@ scenario:
     - idempotence
     - side_effect
     - verify
-    - destroy
