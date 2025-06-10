@@ -6,7 +6,6 @@ driver:
     login_cmd_template: docker exec -ti {instance} bash
     ansible_connection_options:
       ansible_connection: community.docker.docker
-      ansible_become_method: su
 dependency:
   name: galaxy
   options:
@@ -38,3 +37,4 @@ platforms:
     #- /tmp
     #volumes:
     #- /sys/fs/cgroup:/sys/fs/cgroup:ro
+
